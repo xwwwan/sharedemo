@@ -1,7 +1,9 @@
 package com.weibomarket.easychaben.wechat.templates;
 
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 
 /**
  * @ClassName: AppRegisterTemplate
@@ -9,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
  * @Author: heguowen
  * @CreateDate: 2019-07-21 00:45
  */
-public class AppRegisterTemplate extends AppCompatActivity {
+public class AppRegisterTemplate extends BroadcastReceiver {
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+    }
 }

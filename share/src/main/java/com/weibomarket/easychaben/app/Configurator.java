@@ -19,8 +19,6 @@ import okhttp3.Interceptor;
 @SuppressWarnings("JavaDoc")
 public class Configurator {
     private static final HashMap<Object, Object> QIANMO_CONFIGS = new HashMap<>();
-    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
-    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         QIANMO_CONFIGS.put(ConfigType.CONFIG_READY, false);
@@ -35,39 +33,7 @@ public class Configurator {
     }
 
     public final void configure() {
-        initIcons();
         QIANMO_CONFIGS.put(ConfigType.CONFIG_READY, true);
-    }
-
-    public final Configurator withApiHost(String host) {
-        QIANMO_CONFIGS.put(ConfigType.API_HOST, host);
-        return this;
-    }
-
-    private void initIcons() {
-        if (ICONS.size() > 0) {
-            final Iconify.IconifyInitializer initializer = Iconify.with(ICONS.get(0));
-            for (int i = 0; i < ICONS.size(); i++) {
-                initializer.with(ICONS.get(i));
-            }
-        }
-    }
-
-    public final Configurator withIcon(IconFontDescriptor descriptor) {
-        ICONS.add(descriptor);
-        return this;
-    }
-
-    public final Configurator withInterceptor(Interceptor interceptor) {
-        INTERCEPTORS.add(interceptor);
-        QIANMO_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
-        return this;
-    }
-
-    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
-        INTERCEPTORS.addAll(interceptors);
-        QIANMO_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
-        return this;
     }
 
     public final Configurator withWeChatAppId(String appId) {

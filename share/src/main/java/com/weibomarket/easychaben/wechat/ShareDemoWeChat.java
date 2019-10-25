@@ -16,8 +16,8 @@ import com.weibomarket.easychaben.wechat.callbacks.IWeChatSignCallback;
  * @CreateDate: 2019-07-21 01:00
  */
 public class ShareDemoWeChat {
-    public static final String APP_ID ="wxb46aa5a311b637b1";
-    public static final String APP_SECRET = "af57cbf8905e428ed68574619996a3e9";
+    public static final String APP_ID = ShareDemo.getConfiguration(ConfigType.WE_CHAT_APP_ID);
+    public static final String APP_SECRET = ShareDemo.getConfiguration(ConfigType.WE_CHAT_APP_SECRET);
     private IWeChatSignCallback mSignSuccessCallback;
     private final IWXAPI WXAPI;
 

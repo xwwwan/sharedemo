@@ -38,8 +38,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
                 .append("&code=")
                 .append(code)
                 .append("&grant_type=authorization_code");
-//        Logutils.e("heguowen", authUrl.toString());
-//        getAuth(authUrl.toString());
         getAccessToken(authUrl.toString());
     }
 
@@ -65,9 +63,7 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 final String responseStr = response.body().string();
                 JSONObject jsonObject = JSON.parseObject(responseStr);
-                Logutils.json("heguowen", responseStr);
                 String refreshToken = jsonObject.getString("refresh_token");
-                String openId = jsonObject.getString("openid");
 
                 StringBuilder sb = new StringBuilder();
                 sb.append("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=")
@@ -76,7 +72,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
                         .append("&refresh_token=")
                         .append(refreshToken);
 
-                Logutils.d(sb.toString());
                 refreshToken(sb.toString());
 
             }
@@ -102,7 +97,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
             public void onResponse(Call call, final Response response) throws IOException {
                 final String responseStr = response.body().string();
                 JSONObject jsonObject = JSON.parseObject(responseStr);
-                Logutils.json("heguowen", responseStr);
 
                 String accessToken = jsonObject.getString("access_token");
                 String openId = jsonObject.getString("openid");
@@ -114,7 +108,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
                         .append("&openid=")
                         .append(openId);
 
-                Logutils.d(sb.toString());
                 getAuth(sb.toString(), accessToken, openId);
 
             }
@@ -124,11 +117,8 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
 
     private void getAuth(String authUrl, final String accessToken, final String openId) {
         OkHttpClient client = new OkHttpClient();
-        //构造Request对象
-        //采用建造者模式，链式调用指明进行Get请求,传入Get的请求地址
         Request request = new Request.Builder().get().url(authUrl).build();
         Call call = client.newCall(request);
-        //异步调用并设置回调函数
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -142,7 +132,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
                         .append("&openid=")
                         .append(openId);
 
-                Logutils.d(sb.toString());
                 getUserInfo(sb.toString());
 
             }
@@ -165,7 +154,6 @@ public abstract class BaseWeChatEntryActivity extends BaseWeChatActivity {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 onSignInSuccess(response.body().string());
-                Logutils.d(response);
             }
         });
     }

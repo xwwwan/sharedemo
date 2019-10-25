@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.weibomarket.easychaben.app.ShareDemo;
+import com.weibomarket.easychaben.utils.Logutils;
 import com.weibomarket.easychaben.wechat.ShareDemoWeChat;
 import com.weibomarket.easychaben.wechat.callbacks.IWeChatSignCallback;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         ShareDemoWeChat.getInstance().onSignSuccess(new IWeChatSignCallback() {
             @Override
             public void onSignInSuccess(final String userInfo) {
+                Logutils.json("heguowen", userInfo);
                 view.post(new Runnable() {
                     @Override
                     public void run() {
